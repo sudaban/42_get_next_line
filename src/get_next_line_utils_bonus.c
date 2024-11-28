@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*   get_next_line_utils_bonus.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdaban <sdaban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/04 10:20:42 by sdaban            #+#    #+#             */
-/*   Updated: 2024/11/28 11:44:36 by sdaban           ###   ########.fr       */
+/*   Created: 2024/11/22 05:32:01 by sdaban            #+#    #+#             */
+/*   Updated: 2024/11/28 11:44:40 by sdaban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <stdlib.h>
 
 size_t	ft_strlen(const char *str)
@@ -45,9 +45,9 @@ char	*ft_strchr(const char *s, int c)
 
 char	*ft_strjoin(const char *dest, const char *src)
 {
-	char	*p;
-	size_t	i;
-	size_t	j;
+	char		*p;
+	size_t		i;
+	size_t		j;
 
 	if (!dest || !src)
 		return (NULL);

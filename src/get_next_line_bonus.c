@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: sdaban <sdaban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/21 23:15:00 by sdaban            #+#    #+#             */
-/*   Updated: 2024/11/28 11:44:32 by sdaban           ###   ########.fr       */
+/*   Created: 2024/11/22 05:31:55 by sdaban            #+#    #+#             */
+/*   Updated: 2024/11/28 11:44:45 by sdaban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 #include <unistd.h>
 #include <stdlib.h>
 
@@ -94,26 +94,26 @@ char	*extract_line(char *last)
 
 char	*get_next_line(int fd)
 {
-	static char	*last;
+	static char	*last[MAX_FDS];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || fd >= MAX_FDS || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!last)
+	if (!last[fd])
 	{
-		last = malloc(1);
-		if (!last)
+		last[fd] = malloc(1);
+		if (!last[fd])
 			return (NULL);
-		last[0] = '\0';
+		last[fd][0] = '\0';
 	}
-	last = read_until_newline(fd, last);
-	if (!last)
+	last[fd] = read_until_newline(fd, last[fd]);
+	if (!last[fd])
 		return (NULL);
-	if (!*last)
-		return ((free(last), last = NULL), NULL);
-	line = extract_line(last);
+	if (!*last[fd])
+		return ((free(last[fd]), last[fd] = NULL), NULL);
+	line = extract_line(last[fd]);
 	if (!line)
-		return ((free(last), last = NULL), NULL);
-	last = cleanup_buffer(last);
+		return ((free(last[fd]), last[fd] = NULL), NULL);
+	last[fd] = cleanup_buffer(last[fd]);
 	return (line);
 }
